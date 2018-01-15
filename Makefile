@@ -24,7 +24,7 @@ drm-kms-objs = \
 drm-gpu-objs = \
 	drm-gpu.o
 
-all: kms-swap-buffers gles-clear gles-clear-offscreen
+all: kms-swap-buffers gles-clear gles-clear-offscreen gbm-prime
 
 clean:
 	rm -f kms-swap-buffers kms-swap-buffers.o
@@ -38,6 +38,9 @@ gles-clear-offscreen: gles-clear-offscreen.o common.o $(drm-kms-objs) $(drm-gpu-
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 kms-swap-buffers: kms-swap-buffers.o $(drm-kms-objs)
+	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
+
+gbm-prime: gbm-prime.o $(drm-kms-objs)
 	$(CC) $(CFLAGS) -o $@ $^ $(LIBS)
 
 %.o: %.c
